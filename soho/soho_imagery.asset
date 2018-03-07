@@ -1,0 +1,36 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('./soho')
+
+
+
+if not SOHOImageryDataPath then
+    openspace.printError("Trying to add SOHO imagery, but 'SOHOImageryDataPath' was not defined")
+    return
+end
+
+local transferfunctions = asset.syncedResource({
+    Name = "SOHO Transfer Functions",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-soho_transferfunctions",
+    Version = 1
+})
+
+local SOHOImagery = {
+    Name = "SolarImagery_Soho_Image_C2",
+    Parent = transforms.SOHO.Name,
+    Renderable = {
+        Type = "RenderableSolarImagery",
+        -- Will recursively find all instruments with .jp2 or .j2k extension
+        RootPath = SOHOImageryDataPath,
+        Offset = 0.00001,
+        StartResolutionLevel = 0,
+        StartInstrument = "LASCO_C2_white-light",
+        TransferfunctionPath = transferfunctions
+    },
+    GuiPath = "/Solar System/Solar Imagery"
+}
+
+
+
+local objects = { SOHOImagery }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)

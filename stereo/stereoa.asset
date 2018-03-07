@@ -1,0 +1,60 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('scene/solarsystem/sun/transforms')
+
+
+
+local kernels = asset.syncedResource({
+    Name = "STEREO A Kernels",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-stereo_ahead_kernels",
+    Version = 1
+})
+
+local STEREOA = {
+    Name = "Stereo A",
+    Parent = transforms.SolarSystemBarycenter.Name,
+    Transform = {
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "STEREO AHEAD",
+            Observer = "SUN",
+            Kernels = kernels .. "/STEREO-A_merged.bsp"
+        },
+        -- Using internal reference frame
+        -- Rotation = {
+        --     Type = "SpiceRotation",
+        --     SourceFrame = "STASCPNT",
+        --     DestinationFrame = "GALACTIC",
+        --     Kernels = "${OPENSPACE_DATA}/spice/stereo_rtn.tf"
+        -- },
+        Rotation = {
+            Type = "SpiceRotation",
+            SourceFrame = "ECLIPJ2000",
+            DestinationFrame = "GALACTIC"
+        }
+    },
+    GuiPath = "/SolarSystem/Missions/Stereo"
+}
+
+local STEREOATrail = {
+    Name = "Stereo A Trail",
+    Parent = transforms.SolarSystemBarycenter.Name,
+    Renderable = {
+        Type = "RenderableTrailOrbit",
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "STEREO AHEAD",
+            Observer = "SUN",
+            Kernels = kernels .. "/STEREO-A_merged.bsp"
+        },
+        Color = { 0.41, 0.52, 0.9 },
+        Period = 365.242,
+        Resolution = 1000
+    },
+    GuiPath = "/SolarSystem/Missions/Stereo"
+}
+
+
+
+local objects = { STEREOA, STEREOATrail }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)

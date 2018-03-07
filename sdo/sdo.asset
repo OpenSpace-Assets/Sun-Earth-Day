@@ -1,0 +1,77 @@
+local assetHelper = asset.require('util/asset_helper')
+local earthTransforms = asset.require('scene/solarsystem/planets/earth/transforms')
+
+
+
+local kernels = asset.syncedResource({
+    Name = "SDO Kernels",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-sdo_kernels",
+    Version = 1
+})
+
+local SDO = {
+    Name = "SDO",
+    Parent = earthTransforms.EarthInertial.Name,
+    Transform = {
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "-136395",
+            Observer = "EARTH",
+            Frame = "J2000",
+            Kernels = kernels .. "/SDO_EPHEM_2010123_2017104_new.bsp"
+        }
+    },
+    GuiPath = "/Solar System/Missions/SDO"
+}
+
+--- abock:  is this still necessary?
+local SDOGalacticIntermediateNode = {
+    Name = "SDOGalacticIntermediateNode",
+    Parent = SDO.Name,
+    Transform = {
+        Rotation = {
+            Type = "SpiceRotation",
+            SourceFrame = "GALACTIC",
+            DestinationFrame = "J2000"
+        }
+    },
+    GuiPath = "/Solar System/Missions/SDO"
+}
+
+local SDOCoordinateSystem = {
+    Name = "SDOCoordinatesystem",
+    Parent = SDOGalacticIntermediateNode.Name,
+    Transform = {
+        Rotation = {
+            Type = "SpiceRotation",
+            SourceFrame = "ECLIPJ2000",
+            DestinationFrame = "GALACTIC"
+        }
+    },
+    GuiPath = "/Solar System/Missions/SDO"
+}
+
+local SDOTrail = {
+    Name = "SDO Trail",
+    Parent = earthTransforms.EarthInertial.Name,
+    Renderable = {
+        Type = "RenderableTrailOrbit",
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "-136395",
+            Observer = "EARTH",
+            Frame = "J2000",
+            Kernels = kernels .. "/SDO_EPHEM_2010123_2017104_new.bsp"
+        },
+        Color = { 1.0, 1.0, 1.0 },
+        Period = 0.997319,
+        Resolution = 1000
+    },
+    GuiPath = "/Solar System/Missions/SDO"
+}
+
+
+
+local objects = { SDO, SDOGalacticIntermediateNode, SDOCoordinateSystem, SDOTrail }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)

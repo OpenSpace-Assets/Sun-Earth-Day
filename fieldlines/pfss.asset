@@ -1,0 +1,69 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('./transforms')
+local transferFunctions = asset.require('./transferfunctions').TransferFunctions
+
+
+
+local pfssTransitionColorTable = transferFunctions .. "/pfss_transition.txt";
+local pfssTopologyColorTable = transferFunctions .. "/pfss_topology.txt";
+local pfssBsignColorTable = transferFunctions .. "/pfss_bsign.txt";
+
+
+-- Fieldline data
+if not PFSSPaths.SolarSoft then
+    openspace.printError("Trying to add PFSS fieldlines, but 'PFSSPaths.SolarSoft' was not defined")
+    return
+end
+
+
+local PFSS = {
+    Name = "FL_PFSS",
+    Parent = transforms.HNMReferenceFrame.Name,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        -- TracingMethod = "PreTracedBinary",
+        SourceFolder = PFSSPaths.SolarSoft,
+        InputFileType = "osfls",
+        -- StartStateOffset = 515,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 55,
+        ColorTablePaths = {
+            --pfssTransitionColorTable,
+            pfssTopologyColorTable,
+            pfssBsignColorTable,
+        },
+        ColorTableMinMax = {
+            --{0, 1},
+            { 0, 2 },
+            { -1, 1 },
+        },
+        ExtraMinMaxLimits = {
+            --{-1, 1},
+            { 0, 2 },
+            { -1, 1 },
+        },
+        DefaultColor = { 0.3861, 1.0, 0.92174, 0.18644},
+        RadialDomainLimits = { 0, 50 },
+        CartesianDomainLimits = {
+            { -50, 50 },
+            { -50, 50 },
+            { -50, 50 }
+        },
+        LoadAtRuntime = true
+    }
+}
+
+
+
+local objects = { PFSS }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)
+
+asset.onInitialize(function ()
+    particles
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleFrequency", 100)
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSpeed", 30000000)
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSize", 9)
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleColor", {1, 0.9, 1, 0.74})
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Color.fieldlineColorMethod", 0)
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Enabled", false)
+end)

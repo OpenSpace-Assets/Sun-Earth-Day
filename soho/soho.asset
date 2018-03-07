@@ -1,0 +1,81 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('scene/solarsystem/sun/transforms')
+
+
+
+local kernels = asset.syncedResource({
+    Name = "SOHO Kernels",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-soho_kernels",
+    Version = 1
+})
+
+local Kernels = {
+    kernels .. "/soho_1995.bsp",
+    kernels .. "/soho_1996.bsp",
+    kernels .. "/soho_1997.bsp",
+    kernels .. "/soho_1998a.bsp",
+    kernels .. "/soho_1998b.bsp",
+    kernels .. "/soho_1999.bsp",
+    kernels .. "/soho_2000.bsp",
+    kernels .. "/soho_2001.bsp",
+    kernels .. "/soho_2002.bsp",
+    kernels .. "/soho_2003.bsp",
+    kernels .. "/soho_2004.bsp",
+    kernels .. "/soho_2005.bsp",
+    kernels .. "/soho_2006.bsp",
+    kernels .. "/soho_2007.bsp",
+    kernels .. "/soho_2008.bsp",
+    kernels .. "/soho_2009.bsp",
+    kernels .. "/soho_2010.bsp",
+    kernels .. "/soho_2011.bsp",
+    kernels .. "/soho_2012.bsp",
+    kernels .. "/soho_2013.bsp",
+    kernels .. "/soho_2014.bsp",
+    kernels .. "/soho_2015.bsp",
+    kernels .. "/soho_2016.bsp",
+    kernels .. "/soho_2017.bsp",
+    kernels .. "/soho_2018.bsp"
+}
+
+local SOHO = {
+    Name = "SOHO",
+    Parent = transforms.SolarSystemBarycenter.Name,
+    Transform = {
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "SOHO",
+            Observer = "SUN",
+            Kernels = Kernels
+        },
+        Rotation = {
+            Type = "SpiceRotation",
+            SourceFrame = "ECLIPJ2000",
+            DestinationFrame = "GALACTIC",
+        },
+    },
+    GuiPath = "/SolarSystem/Missions/SOHO"
+}
+
+local SOHOTrail = {
+    Name = "SOHO Trail",
+    Parent = transforms.SolarSystemBarycenter.Name,
+    Renderable = {
+        Type = "RenderableTrailOrbit",
+        Translation = {
+            Type = "SpiceTranslation",
+            Target = "SOHO",
+            Observer = "SUN",
+            Kernels = Kernels
+        },
+        Color = { 0.18, 0.59, 0.21 },
+        Period = 365.242,
+        Resolution = 1000
+    },
+    GuiPath = "/SolarSystem/Missions/SOHO"
+}
+
+
+
+local objects = { SOHO, SOHOTrail }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)

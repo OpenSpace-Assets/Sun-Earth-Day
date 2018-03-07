@@ -1,0 +1,1 @@
+Please note that the available kernels for SDO only cover a limited amount of time between 2010 and the middle of April 2017. If you are outside that range, the trail for SDO will not show up.

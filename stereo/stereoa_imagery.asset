@@ -1,0 +1,51 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('./stereoa')
+
+
+
+if not StereoAImageryDataPath then
+    openspace.printError("Trying to add STEREO A imagery, but 'StereoAImageryDataPath' was not defined")
+    return
+end
+
+local transferfunctions = asset.syncedResource({
+    Name = "STEREO Transfer Functions",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-stereo_transferfunctions",
+    Version = 1
+})
+
+local STEREOAImageryEUV = {
+    Name = "SolarImagery_Stereo_StereoA_Image_EUV",
+    Parent = transforms["Stereo A"].Name,
+    Renderable = {
+        Type = "RenderableSolarImagery",
+        -- Will recursively find all instruments with .jp2 or .j2k extension
+        RootPath = imageryPath,
+        StartGamma = 1.75,
+        StartResolutionLevel = 1,
+        StartInstrument = "SECCHI_EUVI_304",
+        -- TransferfunctionPath = transferfunctions
+    },
+    GuiPath = "/Solar System/Solar Imagery"
+}
+
+local STEREOAImageryCOR = {
+    Name = "SolarImagery_Stereo_StereoA_Image_COR",
+    Parent = transforms["Stereo A"].Name,
+    Renderable = {
+        Type = "RenderableSolarImagery",
+        -- Will recursively find all instruments with .jp2 or .j2k extension
+        RootPath = StereoAImageryDataPath,
+        StartResolutionLevel = 1,
+        Offset = 0.00001,
+        StartInstrument = "SECCHI_COR2_white-light",
+        -- TransferfunctionPath = transferfunctions
+    },
+    GuiPath = "/Solar System/Solar Imagery"
+}
+
+
+
+local objects = { STEREOAImageryEUV, STEREOAImageryCOR }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)

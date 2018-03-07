@@ -1,0 +1,137 @@
+local assetHelper = asset.require('util/asset_helper')
+local sceneHelper = asset.require('util/scene_helper')
+
+-- Specifying which other assets should be loaded in this scene
+asset.require('spice/base')
+assetHelper.requestAll(asset, 'scene/solarsystem/sun')
+asset.require('scene/solarsystem/planets')
+assetHelper.requestAll(asset, 'scene/digitaluniverse')
+
+-- Load default key bindings applicable to most scenes
+asset.require('util/default_keybindings')
+asset.request('customization/globebrowsing')
+
+
+-- We need to specify paths to J2000 images of satellites before requesting the mission_imagery assets:
+-- @TODO(abock):  Instructions on how to prepare images
+SOHOImageryDataPath    = "E:/solarbrowsingdata/event/SOHO"
+-- assetHelper.requestAll(asset, './soho')
+
+SDOImageryDataPath     = "E:/solarbrowsingdata/event/SDO"
+-- assetHelper.requestAll(asset, './sdo')
+
+StereoAImageryDataPath = "E:/solarbrowsingdata/event/STEREOA"
+StereoBImageryDataPath = "E:/solarbrowsingdata/event/STEREOB"
+-- assetHelper.requestAll(asset, './stereo')
+
+
+
+-- We need to specify paths to the prepared fieldline files before requesting the BATSRUS, ENLIL, and PFSS fieldline assets:
+-- @TODO(abock):  Instructions on how to prepare fieldline files
+local BasePath = "D:/fieldlinedata/FieldlineBinaries/"
+BATSRUSPaths = {
+    MagneticOpenClosed = BasePath .. "batsrus/lutz_july_event/downsampled4/magnetic_fieldlines/open-closed/",
+    VelocityFlowlinesUpstream = BasePath .. "batsrus/lutz_july_event/downsampled4/velocity_flowlines/upstream/"
+}
+asset.request('./fieldlines/batsrus')
+ENLILPaths = {
+    EqPlane011AU1 = BasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_1/",
+    EqPlane011AU2 = BasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_2/",
+    Lat4011AU1 = BasePath .. "enlil/july2012/downsampled40/011AU_lat4_1/",
+    Lat4011AU2 = BasePath .. "enlil/july2012/downsampled40/011AU_lat4_2/",
+    Earth = BasePath .. "enlil/july2012/downsampled40/earth/",
+    StereoA = BasePath .. "enlil/july2012/downsampled40/stereoa/"
+}
+asset.request('./fieldlines/enlil')
+PFSSPaths = {
+    SolarSoft = BasePath .. "pfss/leilas_solar_soft_july_12_2012/"
+}
+asset.request('./fieldlines/pfss')
+
+-- Keybindings that are specific for this scene
+local Keybindings = {
+    {
+        Key = "s",
+        Command = sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth at Night 2012.Enabled') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled'),
+        Documentation = "Toggle night texture, shading, atmosphere, and water for Earth.",
+        Local = false
+    },
+    {
+        Key = "b",
+        Command = sceneHelper.property.invert('Scene.MilkyWay.renderable.Enabled') ..
+                  sceneHelper.property.invert('Scene.Stars.renderable.Enabled'),
+        Documentation = "Toggle background (Stars and Milkyway).",
+        Local = false
+    },
+    {
+        Key = "g",
+        Command = sceneHelper.property.invert('Scene.MilkyWay.renderable.Enabled') ..
+                  sceneHelper.property.invert('Scene.Stars.renderable.Enabled') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth at Night 2012.Enabled') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
+                  sceneHelper.property.invert('Scene.Mars.RenderableGlobe.PerformShading') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
+                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled') ..
+                  sceneHelper.property.invert('Scene.Moon.RenderableGlobe.Enabled') ..
+                  sceneHelper.property.invert('Scene.Sun.renderable.Enabled'),
+        Documentation = "Toogles background and shading mode on the Earth and Mars alongside visibility of the Moon and the Sun",
+        Local = false
+    },
+    {
+        Key = "h",
+        Command = "openspace.setPropertyValue('Scene.*Trail.renderable.Enabled', false)",
+        Documentation = "Disables visibility of the trails",
+        Local = false
+    },
+}
+
+local earthAsset = asset.require('scene/solarsystem/planets/earth/earth')
+
+asset.onInitialize(function ()
+    openspace.time.setTime("2012 JUL 01 00:00:00.000")
+
+    sceneHelper.bindKeys(Keybindings)
+
+    openspace.setDefaultDashboard()
+    openspace.setDefaultGuiSorting()
+
+    openspace.globebrowsing.loadWMSServersFromFile(
+        openspace.absPath("${DATA}/globebrowsing_servers.lua")
+    )
+
+    openspace.markInterestingNodes({
+        "Earth", "Mars", "Moon"
+    })
+
+
+    openspace.addVirtualProperty(
+        "BoolProperty",
+        "Show Trails",
+        "Scene.*Trail.renderable.Enabled",
+        "Disable or enable all trails of the scene at the same time",
+        true,
+        nil,
+        nil
+    )
+
+    openspace.navigation.setCameraState({
+        Focus = earthAsset.Earth.Name,
+        Position = { 0, 0, 0 },
+        Rotation = { 0.758797, 0.221490, -0.605693, -0.091135 },
+    })
+
+    openspace.globebrowsing.goToGeo(58.5877, 16.1924, 20000000)
+end)
+
+asset.onDeinitialize(function ()
+    sceneHelper.unbindKeys(Keybindings)
+
+    openspace.removeVirtualProperty("*Trail.renderable.Enabled")
+
+    openspace.removeInterestingNodes({
+        "Earth", "Mars", "Moon"
+    })
+end)

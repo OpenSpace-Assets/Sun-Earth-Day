@@ -1,0 +1,34 @@
+local assetHelper = asset.require('util/asset_helper')
+local transforms = asset.require('./sdo')
+
+
+
+if not SDOImageryDataPath then
+    openspace.printError("Trying to add SDO imagery, but 'SDOImageryDataPath' was not defined")
+    return
+end
+
+local transferfunctions = asset.syncedResource({
+    Name = "SDO Transfer Functions",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-sdo_transferfunctions",
+    Version = 1
+})
+
+local SDOImagery = {
+    Name = "SolarImagery_SDO_Image_AIA",
+    Parent = transforms.SDOCoordinatesystem.Name,
+    Renderable = {
+        Type = "RenderableSolarImagery",
+        -- Will recursively find all instruments with .jp2 or .j2k extension
+        RootPath = SDOImageryDataPath,
+        -- Optional path to transferfunctions whose names must match the instruments name
+        TransferfunctionPath = transferfunctions
+    },
+    GuiPath = "/Solar System/Solar Imagery"
+}
+
+
+
+local objects = { SDOImagery }
+assetHelper.registerSceneGraphNodesAndExport(asset, objects)
