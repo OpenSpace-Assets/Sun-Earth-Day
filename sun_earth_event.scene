@@ -1,10 +1,11 @@
 local assetHelper = asset.require('util/asset_helper')
 local sceneHelper = asset.require('util/scene_helper')
+local propertyHelper = asset.require('util/property_helper')
 
 -- Specifying which other assets should be loaded in this scene
 asset.require('spice/base')
 assetHelper.requestAll(asset, 'scene/solarsystem/sun')
-asset.require('scene/solarsystem/planets')
+-- asset.require('scene/solarsystem/planets')
 assetHelper.requestAll(asset, 'scene/digitaluniverse')
 
 -- Load default key bindings applicable to most scenes
@@ -28,7 +29,7 @@ StereoBImageryDataPath = "E:/solarbrowsingdata/event/STEREOB"
 
 -- We need to specify paths to the prepared fieldline files before requesting the BATSRUS, ENLIL, and PFSS fieldline assets:
 -- @TODO(abock):  Instructions on how to prepare fieldline files
-local BasePath = "D:/fieldlinedata/FieldlineBinaries/"
+local BasePath = "D:/OpenSpace/2018-SunEarth/fieldlinedata/FieldlineBinaries/"
 BATSRUSPaths = {
     MagneticOpenClosed = BasePath .. "batsrus/lutz_july_event/downsampled4/magnetic_fieldlines/open-closed/",
     VelocityFlowlinesUpstream = BasePath .. "batsrus/lutz_july_event/downsampled4/velocity_flowlines/upstream/"
@@ -42,41 +43,41 @@ ENLILPaths = {
     Earth = BasePath .. "enlil/july2012/downsampled40/earth/",
     StereoA = BasePath .. "enlil/july2012/downsampled40/stereoa/"
 }
-asset.request('./fieldlines/enlil')
+-- asset.request('./fieldlines/enlil')
 PFSSPaths = {
     SolarSoft = BasePath .. "pfss/leilas_solar_soft_july_12_2012/"
 }
-asset.request('./fieldlines/pfss')
+-- asset.request('./fieldlines/pfss')
 
 -- Keybindings that are specific for this scene
 local Keybindings = {
     {
         Key = "s",
-        Command = sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth at Night 2012.Enabled') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled'),
+        Command = propertyHelper.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth_at_Night_2012.Enabled') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled'),
         Documentation = "Toggle night texture, shading, atmosphere, and water for Earth.",
         Local = false
     },
     {
         Key = "b",
-        Command = sceneHelper.property.invert('Scene.MilkyWay.renderable.Enabled') ..
-                  sceneHelper.property.invert('Scene.Stars.renderable.Enabled'),
+        Command = propertyHelper.invert('Scene.MilkyWay.renderable.Enabled') ..
+                  propertyHelper.invert('Scene.Stars.renderable.Enabled'),
         Documentation = "Toggle background (Stars and Milkyway).",
         Local = false
     },
     {
         Key = "g",
-        Command = sceneHelper.property.invert('Scene.MilkyWay.renderable.Enabled') ..
-                  sceneHelper.property.invert('Scene.Stars.renderable.Enabled') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth at Night 2012.Enabled') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
-                  sceneHelper.property.invert('Scene.Mars.RenderableGlobe.PerformShading') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
-                  sceneHelper.property.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled') ..
-                  sceneHelper.property.invert('Scene.Moon.RenderableGlobe.Enabled') ..
-                  sceneHelper.property.invert('Scene.Sun.renderable.Enabled'),
+        Command = propertyHelper.invert('Scene.MilkyWay.renderable.Enabled') ..
+                  propertyHelper.invert('Scene.Stars.renderable.Enabled') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.Layers.NightLayers.Earth_at_Night_2012.Enabled') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.PerformShading') ..
+                  propertyHelper.invert('Scene.Mars.RenderableGlobe.PerformShading') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.Atmosphere') ..
+                  propertyHelper.invert('Scene.Earth.RenderableGlobe.Layers.WaterMasks.MODIS_Water_Mask.Enabled') ..
+                  propertyHelper.invert('Scene.Moon.RenderableGlobe.Enabled') ..
+                  propertyHelper.invert('Scene.Sun.renderable.Enabled'),
         Documentation = "Toogles background and shading mode on the Earth and Mars alongside visibility of the Moon and the Sun",
         Local = false
     },
@@ -118,7 +119,7 @@ asset.onInitialize(function ()
     )
 
     openspace.navigation.setCameraState({
-        Focus = earthAsset.Earth.Name,
+        Focus = earthAsset.Earth.Identifier,
         Position = { 0, 0, 0 },
         Rotation = { 0.758797, 0.221490, -0.605693, -0.091135 },
     })

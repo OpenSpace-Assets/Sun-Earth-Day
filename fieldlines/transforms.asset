@@ -8,8 +8,8 @@ local HNMKernel = asset.localResource("kernels/HNM.tf")
 local GSMKernel = asset.localResource("kernels/GSM.ti")
 
 local HNMReferenceFrame = {
-    Name = "HNMReferenceFrame",
-    Parent = sunTransforms.SolarSystemBarycenter.Name,
+    Identifier = "HNMReferenceFrame",
+    Parent = sunTransforms.SolarSystemBarycenter.Identifier,
     Transform = {
         Rotation = {
             Type = "SpiceRotation",
@@ -17,12 +17,15 @@ local HNMReferenceFrame = {
             DestinationFrame = "GALACTIC",
             Kernels = HNMKernel
         }
+    },
+    GUI = {
+        Name = "HNM Reference Frame"
     }
 }
 
 local GSMReferenceFrame = {
-    Name = "GSMReferenceFrame",
-    Parent = earthTransforms.EarthBarycenter.Name,
+    Identifier = "GSMReferenceFrame",
+    Parent = earthTransforms.EarthBarycenter.Identifier,
     Transform = {
         Rotation = {
             Type = "SpiceRotation",
@@ -30,6 +33,9 @@ local GSMReferenceFrame = {
             DestinationFrame = "GALACTIC",
             Kernels = GSMKernel
         }
+    },
+    GUI = {
+        Name = "GSM Reference Frame"
     }
 }
 

@@ -131,7 +131,7 @@ local EMF = {
 ]]--
 
 local HighResENLILFieldlinesSequence = {
-    Name = "HighResENLILFieldlinesSequence",
+    Identifier = "HighResENLILFieldlinesSequence",
     Parent = "HNMReferenceFrame",
     Renderable = {
         Type = "RenderableFieldlinesSequence",
@@ -161,6 +161,9 @@ local HighResENLILFieldlinesSequence = {
             File = eqSeedsEnlil1AU_1nHalfdeg,
             -- File = eqSeedsEnlil2AU,
         }
+    },
+    GUI = {
+        Name = "High Res ENLIL Fieldlines"
     }
 }
 

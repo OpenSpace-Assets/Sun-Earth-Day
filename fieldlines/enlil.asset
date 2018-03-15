@@ -47,8 +47,8 @@ end
 
 
 local ENLILSliceEqPlane11AU1 = {
-    Name = "FL_ENLIL_slice_eqPlane_011AU_1",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_slice_eqPlane_011AU_1",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -77,12 +77,15 @@ local ENLILSliceEqPlane11AU1 = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL Slice Equatorial Plane 0.11 AU 1"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 
 local ENLILSliceEqPlane11AU2 = {
-    Name = "FL_ENLIL_slice_eqPlane_011AU_2",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_slice_eqPlane_011AU_2",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -111,12 +114,15 @@ local ENLILSliceEqPlane11AU2 = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL Slice Equatorial Plane 0.11 AU 2"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 
 local ENLILSliceLat411AU1 = {
-    Name = "FL_ENLIL_slice_lat4_011AU_1",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_slice_lat4_011AU_1",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -145,12 +151,15 @@ local ENLILSliceLat411AU1 = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL Slice Latitude 4 0.11 AU 1"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 
 local ENLILSliceLat411AU2 = {
-    Name = "FL_ENLIL_slice_lat4_011AU_2",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_slice_lat4_011AU_2",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -179,12 +188,15 @@ local ENLILSliceLat411AU2 = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL Slice Latitude 4 0.11 AU 2"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 
 local ENLILEarth = {
-    Name = "FL_ENLIL_earth",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_earth",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -213,12 +225,15 @@ local ENLILEarth = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL Earth"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 
 local ENLILStereoA = {
-    Name = "FL_ENLIL_stereoa",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_ENLIL_stereoa",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -247,6 +262,9 @@ local ENLILStereoA = {
         },
         LoadAtRuntime = true
     },
+    GUI = {
+        Name = "Fieldlines ENLIL STEREO A"
+    }
     -- Tag = {"fieldline_sequence", "fieldline_enlil"},
 }
 

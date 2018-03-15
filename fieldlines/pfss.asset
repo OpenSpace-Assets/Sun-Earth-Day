@@ -17,8 +17,8 @@ end
 
 
 local PFSS = {
-    Name = "FL_PFSS",
-    Parent = transforms.HNMReferenceFrame.Name,
+    Identifier = "FL_PFSS",
+    Parent = transforms.HNMReferenceFrame.Identifier,
     Renderable = {
         Type = "RenderableFieldlinesSequence",
         -- TracingMethod = "PreTracedBinary",
@@ -50,6 +50,9 @@ local PFSS = {
             { -50, 50 }
         },
         LoadAtRuntime = true
+    },
+    GUI = {
+        Name = "Fieldlines PFSS"
     }
 }
 
@@ -59,11 +62,11 @@ local objects = { PFSS }
 assetHelper.registerSceneGraphNodesAndExport(asset, objects)
 
 asset.onInitialize(function ()
-    particles
+    -- particles
     openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleFrequency", 100)
     openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSpeed", 30000000)
     openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSize", 9)
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleColor", {1, 0.9, 1, 0.74})
+    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleColor", { 1, 0.9, 1, 0.74 })
     openspace.setPropertyValue("Scene.FL_PFSS.renderable.Color.fieldlineColorMethod", 0)
     openspace.setPropertyValue("Scene.FL_PFSS.renderable.Enabled", false)
 end)
