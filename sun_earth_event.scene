@@ -5,7 +5,7 @@ local propertyHelper = asset.require('util/property_helper')
 -- Specifying which other assets should be loaded in this scene
 asset.require('spice/base')
 assetHelper.requestAll(asset, 'scene/solarsystem/sun')
--- asset.require('scene/solarsystem/planets')
+asset.require('scene/solarsystem/planets')
 assetHelper.requestAll(asset, 'scene/digitaluniverse')
 
 -- Load default key bindings applicable to most scenes
@@ -29,25 +29,26 @@ StereoBImageryDataPath = "E:/solarbrowsingdata/event/STEREOB"
 
 -- We need to specify paths to the prepared fieldline files before requesting the BATSRUS, ENLIL, and PFSS fieldline assets:
 -- @TODO(abock):  Instructions on how to prepare fieldline files
-local BasePath = "D:/OpenSpace/2018-SunEarth/fieldlinedata/FieldlineBinaries/"
+-- local FieldLineBasePath = "D:/OpenSpace/2018-SunEarth/fieldlinedata/FieldlineBinaries/"
+local FieldLineBasePath = "D:/fieldlinedata/FieldlineBinaries/"
 BATSRUSPaths = {
-    MagneticOpenClosed = BasePath .. "batsrus/lutz_july_event/downsampled4/magnetic_fieldlines/open-closed/",
-    VelocityFlowlinesUpstream = BasePath .. "batsrus/lutz_july_event/downsampled4/velocity_flowlines/upstream/"
+    MagneticOpenClosed = FieldLineBasePath .. "batsrus/lutz_july_event/downsampled4/magnetic_fieldlines/open-closed/",
+    VelocityFlowlinesUpstream = FieldLineBasePath .. "batsrus/lutz_july_event/downsampled4/velocity_flowlines/upstream/"
 }
 asset.request('./fieldlines/batsrus')
 ENLILPaths = {
-    EqPlane011AU1 = BasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_1/",
-    EqPlane011AU2 = BasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_2/",
-    Lat4011AU1 = BasePath .. "enlil/july2012/downsampled40/011AU_lat4_1/",
-    Lat4011AU2 = BasePath .. "enlil/july2012/downsampled40/011AU_lat4_2/",
-    Earth = BasePath .. "enlil/july2012/downsampled40/earth/",
-    StereoA = BasePath .. "enlil/july2012/downsampled40/stereoa/"
+    EqPlane011AU1 = FieldLineBasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_1/",
+    EqPlane011AU2 = FieldLineBasePath .. "enlil/july2012/downsampled40/011AU_eq_plane_2/",
+    Lat4011AU1 = FieldLineBasePath .. "enlil/july2012/downsampled40/011AU_lat4_1/",
+    Lat4011AU2 = FieldLineBasePath .. "enlil/july2012/downsampled40/011AU_lat4_2/",
+    Earth = FieldLineBasePath .. "enlil/july2012/downsampled40/earth/",
+    StereoA = FieldLineBasePath .. "enlil/july2012/downsampled40/stereoa/"
 }
--- asset.request('./fieldlines/enlil')
+asset.request('./fieldlines/enlil')
 PFSSPaths = {
-    SolarSoft = BasePath .. "pfss/leilas_solar_soft_july_12_2012/"
+    SolarSoft = FieldLineBasePath .. "pfss/leilas_solar_soft_july_12_2012/"
 }
--- asset.request('./fieldlines/pfss')
+asset.request('./fieldlines/pfss')
 
 -- Keybindings that are specific for this scene
 local Keybindings = {

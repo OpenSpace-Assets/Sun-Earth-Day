@@ -59,14 +59,18 @@ local PFSS = {
 
 
 local objects = { PFSS }
-assetHelper.registerSceneGraphNodesAndExport(asset, objects)
+local init, deinit = assetHelper.registrationFunctions(asset, objects)
 
 asset.onInitialize(function ()
-    -- particles
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleFrequency", 100)
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSpeed", 30000000)
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleSize", 9)
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Particles.fieldlineParticleColor", { 1, 0.9, 1, 0.74 })
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Color.fieldlineColorMethod", 0)
-    openspace.setPropertyValue("Scene.FL_PFSS.renderable.Enabled", false)
+    init()
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Color.uniform", { 0.35, 0.51, 0.875, 0.22 })
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Flow.color", { 1, 0.9, 1, 0.74 })
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Flow.particleSize", 5)
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Flow.particleSpacing", 250)
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Flow.speed", 75.0)
+    openspace.setPropertyValueSingle("Scene.FL_PFSS.renderable.Flow.reversed", true)
+end)
+
+asset.onDeinitialize(function ()
+    deinit()
 end)

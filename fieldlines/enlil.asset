@@ -271,42 +271,52 @@ local ENLILStereoA = {
 
 
 local objects = { ENLILSliceEqPlane11AU1, ENLILSliceEqPlane11AU2, ENLILSliceLat411AU1, ENLILSliceLat411AU2, ENLILEarth, ENLILStereoA }
-assetHelper.registerSceneGraphNodesAndExport(asset, objects)
+local init, deinit = assetHelper.registrationFunctions(asset, objects)
 
 
 asset.onInitialize(function ()
-    -- DEFAULT ENLIL
-    openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.fieldlineColorQuantity", 1)
-    -- openspace.setPropertyValue("FL_ENLIL*.renderable.Color.transferFunctionPath", 'X:/CCMC/fieldlinesdata/colortables/kroyw.txt')
-    openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.transferFunctionLimit1", '150')
-    openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.transferFunctionLimit2", '1050')
-    openspace.setPropertyValue("Scene.FL*.renderable.Enabled", false)
+    init()
 
-    openspace.setPropertyValue("Scene.FL_ENLIL_earth*.renderable.Particles.fieldlineParticleColor", {1,1,1,1.0})
-    openspace.setPropertyValue("Scene.FL_ENLIL_earth*.renderable.Particles.fieldlineParticleSize", 5)
-    openspace.setPropertyValue("Scene.FL_ENLIL_earth*.renderable.Particles.fieldlineParticleFrequency", 25)
-    openspace.setPropertyValue("Scene.FL_ENLIL_earth*.renderable.Particles.fieldlineParticleSpeed", 25000000)
-    openspace.setPropertyValue("Scene.FL_ENLIL_earth*.renderable.Particles.flipParticleDir", true)
+    openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.colorMethod", 1)
+    openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.colorQuantityMax", "225000")
+
+
+
+    openspace.setPropertyValueSingle("Scene.FL_ENLIL_earth.renderable.Flow.color", { 1, 1, 1, 1.0 })
+    openspace.setPropertyValueSingle("Scene.FL_ENLIL_earth.renderable.Flow.particleSize", 5)
+    openspace.setPropertyValueSingle("Scene.FL_ENLIL_earth.renderable.Flow.particleSpacing", 25)
+    openspace.setPropertyValueSingle("Scene.FL_ENLIL_earth.renderable.Flow.speed", 25.0)
+    openspace.setPropertyValueSingle("Scene.FL_ENLIL_earth.renderable.Flow.reversed", true)
+
+    -- DEFAULT ENLIL
+    -- openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.fieldlineColorQuantity", 1)
+    -- openspace.setPropertyValue("FL_ENLIL*.renderable.Color.transferFunctionPath", 'X:/CCMC/fieldlinesdata/colortables/kroyw.txt')
+    -- openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.transferFunctionLimit1", '150')
+    -- openspace.setPropertyValue("Scene.FL_ENLIL*.renderable.Color.transferFunctionLimit2", '1050')
+    -- openspace.setPropertyValue("Scene.FL*.renderable.Enabled", false)
+
 
     ------------------------------ ENLIL ---------------------------
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL ALL", "Scene.FL_ENLIL*.renderable.Enabled", "", false, nil, nil)
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL SLICES", "Scene.FL_ENLIL_slice*.renderable.Enabled", "", false, nil, nil)
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL LAT4", "Scene.FL_ENLIL_slice_lat*.renderable.Enabled", "", false, nil, nil)
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL EQ_PLANE", "Scene.FL_ENLIL_slice_eq*.renderable.Enabled", "", false, nil, nil)
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL EARTH", "Scene.FL_ENLIL_earth*.renderable.Enabled", "", false, nil, nil)
-    openspace.addVirtualProperty("BoolProperty",  "ENLIL STEREOA", "Scene.FL_ENLIL_stereoa*.renderable.Enabled", "", false, nil, nil)
-    --- SET COLOR METHOD ON ENLIL SLICES AND STEREOA/EARTH LINES
-    openspace.addVirtualProperty("IntProperty",  "ENLIL SlicesColorMethod", "Scene.FL_ENLIL_slice*.renderable.Color.fieldlineColorMethod", "", 1,0,1)
-    openspace.addVirtualProperty("IntProperty",  "ENLIL EarthColorMethod", "Scene.FL_ENLIL_earth*.renderable.Color.fieldlineColorMethod", "", 1,0,1)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL ALL", "Scene.FL_ENLIL*.renderable.Enabled", "", false, nil, nil)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL SLICES", "Scene.FL_ENLIL_slice*.renderable.Enabled", "", false, nil, nil)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL LAT4", "Scene.FL_ENLIL_slice_lat*.renderable.Enabled", "", false, nil, nil)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL EQ_PLANE", "Scene.FL_ENLIL_slice_eq*.renderable.Enabled", "", false, nil, nil)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL EARTH", "Scene.FL_ENLIL_earth*.renderable.Enabled", "", false, nil, nil)
+    -- openspace.addVirtualProperty("BoolProperty",  "ENLIL STEREOA", "Scene.FL_ENLIL_stereoa*.renderable.Enabled", "", false, nil, nil)
+    -- --- SET COLOR METHOD ON ENLIL SLICES AND STEREOA/EARTH LINES
+    -- openspace.addVirtualProperty("IntProperty",  "ENLIL SlicesColorMethod", "Scene.FL_ENLIL_slice*.renderable.Color.colorMethod", "", 1,0,1)
+    -- openspace.addVirtualProperty("IntProperty",  "ENLIL EarthColorMethod", "Scene.FL_ENLIL_earth*.renderable.Color.colorMethod", "", 1,0,1)
 end)
 
 asset.onDeinitialize(function ()
-    openspace.removeVirtualProperty("Scene.FL_ENLIL*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_slice*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_slice_lat*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_slice_eq*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_earth*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_stereoa*.renderable.enabled");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_slice*.renderable.Color.fieldlineColorMethod");
-    openspace.removeVirtualProperty("Scene.FL_ENLIL_earth*.renderable.Color.fieldlineColorMethod");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_slice*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_slice_lat*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_slice_eq*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_earth*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_stereoa*.renderable.enabled");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_slice*.renderable.Color.fieldlineColorMethod");
+    -- openspace.removeVirtualProperty("Scene.FL_ENLIL_earth*.renderable.Color.fieldlineColorMethod");
+
+    deinit()
 end)
