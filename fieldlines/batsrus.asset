@@ -124,11 +124,28 @@ local BatsrusJ12FlowLines = {
 
 
 
--- local objects = { BatsrusJ12OpenClosed, BatsrusJ12FlowLines }
-local objects = { BatsrusJ12OpenClosed }
-assetHelper.registerSceneGraphNodesAndExport(asset, objects)
+local objects = { BatsrusJ12OpenClosed, BatsrusJ12FlowLines }
+local init, deinit = assetHelper.registrationFunctions(asset, objects)
 
 asset.onInitialize(function ()
+    openspace.addSceneGraphNode(BatsrusJ12OpenClosed)
+
+
+    -- init()
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorMethod", 1) -- Color by Quantity
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantity", 4) -- Topology
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.Masking.maskingQuantity", 4) -- Topology
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.Masking.maskingMinLimit", "2.5")
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.Masking.maskingMaxLimit", "3.0")
+
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.DomainLimits.fieldlineDomainQuantity", 4) -- Topology
+    openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_OpenClosed.renderable.DomainLimits.unitInterestRange", {2.5, 3.0})
+
+
+
+
+
+
     -- These are the original values, before I updated the property names to match the new names (abock)
     --         -- BATSRUS ARTIFICIAL
     -- openspace.setPropertyValue("FL_BATSRUS_Artificial_SingleStepOpen*.renderable.DomainLimits.fieldlineDomainQuantity", 4)
@@ -256,4 +273,6 @@ asset.onDeinitialize(function ()
     openspace.removeVirtualProperty("Scene.FL_BATSRUS_J12*.renderable.enabled")
     openspace.removeVirtualProperty("Scene.FL_BATSRUS_J12_Flo*.renderable.enabled")
     openspace.removeVirtualProperty("Scene.FL_BATSRUS_J12_Ope*.renderable.enabled")
+
+    deinit()
 end)
