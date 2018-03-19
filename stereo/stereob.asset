@@ -24,8 +24,8 @@ local Kernels = {
 }
 
 local STEREOB = {
-    Name = "Stereo B",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "Stereo_B",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Transform = {
         Translation = {
             Type = "SpiceTranslation",
@@ -39,12 +39,15 @@ local STEREOB = {
             DestinationFrame = "GALACTIC"
         }
     },
-    GuiPath = "/SolarSystem/Missions/Stereo"
+    GUI = {
+        Name = "Stereo B",
+        Path = "/SolarSystem/Missions/Stereo"
+    }
 }
 
 local STEREOBTrail = {
-    Name = "Stereo B Trail",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "Stereo_B_Trail",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Renderable = {
         Type = "RenderableTrailOrbit",
         Translation = {
@@ -57,7 +60,10 @@ local STEREOBTrail = {
         Period = 365.242,
         Resolution = 1000
     },
-    GuiPath = "/SolarSystem/Missions/Stereo"
+    GUI = {
+        Name = "Stereo B Trail",
+        Path = "/SolarSystem/Missions/Stereo"
+    }
 }
 
 

@@ -11,8 +11,8 @@ local kernels = asset.syncedResource({
 })
 
 local SDO = {
-    Name = "SDO",
-    Parent = earthTransforms.EarthInertial.Name,
+    Identifier = "SDO",
+    Parent = earthTransforms.EarthInertial.Identifier,
     Transform = {
         Translation = {
             Type = "SpiceTranslation",
@@ -22,13 +22,15 @@ local SDO = {
             Kernels = kernels .. "/SDO_EPHEM_2010123_2017104_new.bsp"
         }
     },
-    GuiPath = "/Solar System/Missions/SDO"
+    GUI = {
+        Path = "/Solar System/Missions/SDO"
+    }
 }
 
 --- abock:  is this still necessary?
 local SDOGalacticIntermediateNode = {
-    Name = "SDOGalacticIntermediateNode",
-    Parent = SDO.Name,
+    Identifier = "SDOGalacticIntermediateNode",
+    Parent = SDO.Identifier,
     Transform = {
         Rotation = {
             Type = "SpiceRotation",
@@ -36,12 +38,15 @@ local SDOGalacticIntermediateNode = {
             DestinationFrame = "J2000"
         }
     },
-    GuiPath = "/Solar System/Missions/SDO"
+    GUI = {
+        Name = "SDO Galactic Intermediate Node",
+        Path = "/Solar System/Missions/SDO"
+    }
 }
 
 local SDOCoordinateSystem = {
-    Name = "SDOCoordinatesystem",
-    Parent = SDOGalacticIntermediateNode.Name,
+    Identifier = "SDOCoordinatesystem",
+    Parent = SDOGalacticIntermediateNode.Identifier,
     Transform = {
         Rotation = {
             Type = "SpiceRotation",
@@ -49,12 +54,15 @@ local SDOCoordinateSystem = {
             DestinationFrame = "GALACTIC"
         }
     },
-    GuiPath = "/Solar System/Missions/SDO"
+    GUI = {
+        Name = "SDO Coordinate System",
+        Path = "/Solar System/Missions/SDO"
+    }
 }
 
 local SDOTrail = {
-    Name = "SDO Trail",
-    Parent = earthTransforms.EarthInertial.Name,
+    Identifier = "SDOTrail",
+    Parent = earthTransforms.EarthInertial.Identifier,
     Renderable = {
         Type = "RenderableTrailOrbit",
         Translation = {
@@ -68,7 +76,10 @@ local SDOTrail = {
         Period = 0.997319,
         Resolution = 1000
     },
-    GuiPath = "/Solar System/Missions/SDO"
+    GUI = {
+        Name = "SDO Trail",
+        Path = "/Solar System/Missions/SDO"
+    }
 }
 
 

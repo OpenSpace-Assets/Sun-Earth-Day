@@ -11,8 +11,8 @@ local kernels = asset.syncedResource({
 })
 
 local STEREOA = {
-    Name = "Stereo A",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "Stereo_A",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Transform = {
         Translation = {
             Type = "SpiceTranslation",
@@ -33,12 +33,15 @@ local STEREOA = {
             DestinationFrame = "GALACTIC"
         }
     },
-    GuiPath = "/SolarSystem/Missions/Stereo"
+    GUI = {
+        Name = "STEREO A",
+        Path = "/Solar System/Missions/Stereo"
+    }
 }
 
 local STEREOATrail = {
-    Name = "Stereo A Trail",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "Stereo_A_Trail",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Renderable = {
         Type = "RenderableTrailOrbit",
         Translation = {
@@ -51,7 +54,10 @@ local STEREOATrail = {
         Period = 365.242,
         Resolution = 1000
     },
-    GuiPath = "/SolarSystem/Missions/Stereo"
+    GUI = {
+        Name = "Stereo A Trail",
+        Path = "/Solar System/Missions/Stereo"
+    }
 }
 
 

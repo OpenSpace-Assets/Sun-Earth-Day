@@ -16,8 +16,8 @@ local transferfunctions = asset.syncedResource({
 })
 
 local SDOImagery = {
-    Name = "SolarImagery_SDO_Image_AIA",
-    Parent = transforms.SDOCoordinatesystem.Name,
+    Identifier = "SolarImagery_SDO_Image_AIA",
+    Parent = transforms.SDOCoordinatesystem.Identifier,
     Renderable = {
         Type = "RenderableSolarImagery",
         -- Will recursively find all instruments with .jp2 or .j2k extension
@@ -25,7 +25,10 @@ local SDOImagery = {
         -- Optional path to transferfunctions whose names must match the instruments name
         TransferfunctionPath = transferfunctions
     },
-    GuiPath = "/Solar System/Solar Imagery"
+    GUI = {
+        Name = "SolarImagery SDO Image AIA",
+        Path = "/Solar System/Solar Imagery"
+    }
 }
 
 

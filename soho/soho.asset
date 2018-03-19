@@ -39,8 +39,8 @@ local Kernels = {
 }
 
 local SOHO = {
-    Name = "SOHO",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "SOHO",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Transform = {
         Translation = {
             Type = "SpiceTranslation",
@@ -54,12 +54,14 @@ local SOHO = {
             DestinationFrame = "GALACTIC",
         },
     },
-    GuiPath = "/SolarSystem/Missions/SOHO"
+    GUI = {
+        Path = "/SolarSystem/Missions/SOHO"
+    }
 }
 
 local SOHOTrail = {
-    Name = "SOHO Trail",
-    Parent = transforms.SolarSystemBarycenter.Name,
+    Identifier = "SOHOTrail",
+    Parent = transforms.SolarSystemBarycenter.Identifier,
     Renderable = {
         Type = "RenderableTrailOrbit",
         Translation = {
@@ -72,7 +74,10 @@ local SOHOTrail = {
         Period = 365.242,
         Resolution = 1000
     },
-    GuiPath = "/SolarSystem/Missions/SOHO"
+    GUI = {
+        Name = "SOHO Trail",
+        Path = "/SolarSystem/Missions/SOHO"
+    }
 }
 
 

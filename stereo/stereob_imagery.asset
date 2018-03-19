@@ -16,23 +16,26 @@ local transferfunctions = asset.syncedResource({
 })
 
 local STEREOBImageryEUV = {
-    Name = "SolarImagery_Stereo_StereoB_Image_EUV",
-    Parent = transforms["Stereo B"].Name,
+    Identifier = "SolarImagery_Stereo_StereoB_Image_EUV",
+    Parent = transforms.Stereo_B.Identifier,
     Renderable = {
         Type = "RenderableSolarImagery",
         -- Will recursively find all instruments with .jp2 or .j2k extension
-        RootPath = imageryPath,
+        RootPath = StereoBImageryDataPath,
         StartGamma = 1.75,
         StartResolutionLevel = 1,
         StartInstrument = "SECCHI_EUVI_304",
         -- TransferfunctionPath = transferfunctions
     },
-    GuiPath = "/Solar System/Solar Imagery"
+    GUI = {
+        Name = "SolarImagery Stereo Stereo B Image EUV",
+        Path = "/Solar System/Solar Imagery"
+    }
 }
 
 local STEREOBImageryCOR = {
-    Name = "SolarImagery_Stereo_StereoB_Image_COR",
-    Parent = transforms["Stereo B"].Name,
+    Identifier = "SolarImagery_Stereo_StereoB_Image_COR",
+    Parent = transforms.Stereo_B.Identifier,
     Renderable = {
         Type = "RenderableSolarImagery",
         -- Will recursively find all instruments with .jp2 or .j2k extension
@@ -42,7 +45,10 @@ local STEREOBImageryCOR = {
         StartInstrument = "SECCHI_COR2_white-light",
         -- TransferfunctionPath = transferfunctions
     },
-    GuiPath = "/Solar System/Solar Imagery"
+    GUI = {
+        Name = "SolarImagery Stereo Stereo B Image COR",
+        Path = "/Solar System/Solar Imagery"
+    }
 }
 
 

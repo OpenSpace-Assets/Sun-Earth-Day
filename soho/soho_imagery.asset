@@ -16,8 +16,8 @@ local transferfunctions = asset.syncedResource({
 })
 
 local SOHOImagery = {
-    Name = "SolarImagery_Soho_Image_C2",
-    Parent = transforms.SOHO.Name,
+    Identifier = "SolarImagery_Soho_Image_C2",
+    Parent = transforms.SOHO.Identifier,
     Renderable = {
         Type = "RenderableSolarImagery",
         -- Will recursively find all instruments with .jp2 or .j2k extension
@@ -27,7 +27,10 @@ local SOHOImagery = {
         StartInstrument = "LASCO_C2_white-light",
         TransferfunctionPath = transferfunctions
     },
-    GuiPath = "/Solar System/Solar Imagery"
+    GUI = {
+        Name = "SolarImagery SOHO Image C2",
+        Path = "/Solar System/Solar Imagery"
+    }
 }
 
 
