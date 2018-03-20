@@ -23,7 +23,7 @@ local SDO = {
         }
     },
     GUI = {
-        Path = "/Solar System/Missions/SDO"
+        Path = "/SDO"
     }
 }
 
@@ -40,7 +40,7 @@ local SDOGalacticIntermediateNode = {
     },
     GUI = {
         Name = "SDO Galactic Intermediate Node",
-        Path = "/Solar System/Missions/SDO"
+        Path = "/SDO"
     }
 }
 
@@ -56,7 +56,7 @@ local SDOCoordinateSystem = {
     },
     GUI = {
         Name = "SDO Coordinate System",
-        Path = "/Solar System/Missions/SDO"
+        Path = "/SDO"
     }
 }
 
@@ -78,7 +78,7 @@ local SDOTrail = {
     },
     GUI = {
         Name = "SDO Trail",
-        Path = "/Solar System/Missions/SDO"
+        Path = "/SDO"
     }
 }
 

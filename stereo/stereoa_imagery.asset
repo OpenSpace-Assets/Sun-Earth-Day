@@ -1,19 +1,12 @@
 local assetHelper = asset.require('util/asset_helper')
 local transforms = asset.require('./stereoa')
-
+local transferfunctions = asset.require('./transferfunctions').transferfunctions
 
 
 if not StereoAImageryDataPath then
     openspace.printError("Trying to add STEREO A imagery, but 'StereoAImageryDataPath' was not defined")
     return
 end
-
-local transferfunctions = asset.syncedResource({
-    Name = "STEREO Transfer Functions",
-    Type = "HttpSynchronization",
-    Identifier = "sun_earth_event-stereo_transferfunctions",
-    Version = 1
-})
 
 local STEREOAImageryEUV = {
     Identifier = "SolarImagery_Stereo_StereoA_Image_EUV",
@@ -29,7 +22,7 @@ local STEREOAImageryEUV = {
     },
     GUI = {
         Name = "StereoImagery Stereo Stereo A Image EUV",
-        Path = "/Solar System/Missions/Stereo"
+        Path = "/SolarImagery"
     }
 }
 
@@ -47,7 +40,7 @@ local STEREOAImageryCOR = {
     },
     GUI = {
         Name = "SolarImagery Stereo Stereo A Image COR",
-        Path = "/Solar System/Missions/Stereo"
+        Path = "/SolarImagery"
     }
 }
 

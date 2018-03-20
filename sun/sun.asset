@@ -1,7 +1,6 @@
 local assetHelper = asset.require('util/asset_helper')
 local sun = asset.require('scene/solarsystem/sun/sun')
 
-
 local Sun_Projection = {
     Identifier = "Sun_Projection",
     Parent = sun.Sun.Identifier,
@@ -9,6 +8,13 @@ local Sun_Projection = {
         -- This is a really bad name
         Type = "RenderableSolarImageryProjection",
         -- hmipath = "/media/noven/BE23-1097/solarbrowsingdata/hmimap1.fits"
+        DependentNodes = {
+            "SolarImagery_SDO_Image_AIA",
+            "SolarImagery_Stereo_StereoA_Image_EUV",
+            "SolarImagery_Stereo_StereoA_Image_COR",
+            "SolarImagery_Stereo_StereoB_Image_EUV",
+            "SolarImagery_Stereo_StereoB_Image_COR"
+        }
     },
     GUI = {
         Name = "Sun Projection",

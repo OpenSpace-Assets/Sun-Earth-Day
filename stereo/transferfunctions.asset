@@ -1,0 +1,8 @@
+local transferfunctions = asset.syncedResource({
+    Name = "STEREO Transfer Functions",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-stereo_transferfunctions",
+    Version = 1
+})
+
+asset.export("transferfunctions", transferfunctions)

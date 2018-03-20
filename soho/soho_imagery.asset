@@ -1,19 +1,12 @@
 local assetHelper = asset.require('util/asset_helper')
 local transforms = asset.require('./soho')
-
+local transferfunctions = asset.require('./transferfunctions').transferfunctions
 
 
 if not SOHOImageryDataPath then
     openspace.printError("Trying to add SOHO imagery, but 'SOHOImageryDataPath' was not defined")
     return
 end
-
-local transferfunctions = asset.syncedResource({
-    Name = "SOHO Transfer Functions",
-    Type = "HttpSynchronization",
-    Identifier = "sun_earth_event-soho_transferfunctions",
-    Version = 1
-})
 
 local SOHOImagery = {
     Identifier = "SolarImagery_Soho_Image_C2",
@@ -29,7 +22,7 @@ local SOHOImagery = {
     },
     GUI = {
         Name = "SolarImagery SOHO Image C2",
-        Path = "/Solar System/Missions/SOHO"
+        Path = "/SolarImagery"
     }
 }
 

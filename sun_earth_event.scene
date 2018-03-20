@@ -12,25 +12,25 @@ assetHelper.requestAll(asset, 'scene/digitaluniverse')
 asset.require('util/default_keybindings')
 asset.request('customization/globebrowsing')
 
-
 -- We need to specify paths to J2000 images of satellites before requesting the mission_imagery assets:
 -- @TODO(abock):  Instructions on how to prepare images
-SOHOImageryDataPath    = "E:/solarbrowsingdata/event/SOHO"
--- assetHelper.requestAll(asset, './soho')
+local SolarImageryBasePath = "D:/OpenSpace/2018-SunEarth/solarbrowsingdata/"
+SOHOImageryDataPath    = SolarImageryBasePath .. "event/SOHO"
+assetHelper.requestAll(asset, './soho')
 
-SDOImageryDataPath     = "E:/solarbrowsingdata/event/SDO"
+SDOImageryDataPath     = SolarImageryBasePath .. "event/SDO"
 -- assetHelper.requestAll(asset, './sdo')
 
-StereoAImageryDataPath = "E:/solarbrowsingdata/event/STEREOA"
-StereoBImageryDataPath = "E:/solarbrowsingdata/event/STEREOB"
--- assetHelper.requestAll(asset, './stereo')
+StereoAImageryDataPath = SolarImageryBasePath .. "event/STEREOA"
+StereoBImageryDataPath = SolarImageryBasePath .. "event/STEREOB"
+assetHelper.requestAll(asset, './stereo')
 
 
 
 -- We need to specify paths to the prepared fieldline files before requesting the BATSRUS, ENLIL, and PFSS fieldline assets:
 -- @TODO(abock):  Instructions on how to prepare fieldline files
--- local FieldLineBasePath = "D:/OpenSpace/2018-SunEarth/fieldlinedata/FieldlineBinaries/"
-local FieldLineBasePath = "D:/fieldlinedata/FieldlineBinaries/"
+local FieldLineBasePath = "D:/OpenSpace/2018-SunEarth/fieldlinedata/FieldlineBinaries/"
+-- local FieldLineBasePath = "D:/fieldlinedata/FieldlineBinaries/"
 BATSRUSPaths = {
     MagneticOpenClosed = FieldLineBasePath .. "batsrus/lutz_july_event/downsampled4/magnetic_fieldlines/open-closed/",
     VelocityFlowlinesUpstream = FieldLineBasePath .. "batsrus/lutz_july_event/downsampled4/velocity_flowlines/upstream/"
@@ -49,6 +49,10 @@ PFSSPaths = {
     SolarSoft = FieldLineBasePath .. "pfss/leilas_solar_soft_july_12_2012/"
 }
 asset.request('./fieldlines/pfss')
+
+-- This has to be requested after all of the solary imagery values
+asset.request('./sun/sun')
+
 
 -- Keybindings that are specific for this scene
 local Keybindings = {
@@ -105,7 +109,7 @@ asset.onInitialize(function ()
     )
 
     openspace.markInterestingNodes({
-        "Earth", "Mars", "Moon"
+        "Earth", "Moon", "Sun"
     })
 
 
