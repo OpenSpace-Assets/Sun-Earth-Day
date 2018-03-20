@@ -25,7 +25,7 @@ local STEREOAImageryEUV = {
         StartGamma = 1.75,
         StartResolutionLevel = 1,
         StartInstrument = "SECCHI_EUVI_304",
-        TransferfunctionPath = transferfunctions .. "/SECCHI_EUVI_304.txt"
+        TransferfunctionPath = transferfunctions
     },
     GUI = {
         Name = "StereoImagery Stereo Stereo A Image EUV",
@@ -43,7 +43,7 @@ local STEREOAImageryCOR = {
         StartResolutionLevel = 1,
         Offset = 0.00001,
         StartInstrument = "SECCHI_COR2_white-light",
-        TransferfunctionPath = transferfunctions .. "/SECCHI_COR1_white-light.txt"
+        TransferfunctionPath = transferfunctions
     },
     GUI = {
         Name = "SolarImagery Stereo Stereo A Image COR",

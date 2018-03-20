@@ -1,0 +1,19 @@
+local assetHelper = asset.require('util/asset_helper')
+local sun = asset.require('scene/solarsystem/sun/sun')
+
+
+local Sun_Projection = {
+    Identifier = "Sun_Projection",
+    Parent = sun.Sun.Identifier,
+    Renderable = {
+        -- This is a really bad name
+        Type = "RenderableSolarImageryProjection",
+        -- hmipath = "/media/noven/BE23-1097/solarbrowsingdata/hmimap1.fits"
+    },
+    GUI = {
+        Name = "Sun Projection",
+        Path = "/Solar System/Imagery"
+    }
+}
+
+assetHelper.registerSceneGraphNodesAndExport(asset, { Sun_Projection })

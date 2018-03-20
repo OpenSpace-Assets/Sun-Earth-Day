@@ -55,7 +55,7 @@ local SOHO = {
         },
     },
     GUI = {
-        Path = "/SolarSystem/Missions/SOHO"
+        Path = "/Solar System/Missions/SOHO"
     }
 }
 
@@ -76,7 +76,7 @@ local SOHOTrail = {
     },
     GUI = {
         Name = "SOHO Trail",
-        Path = "/SolarSystem/Missions/SOHO"
+        Path = "/Solar System/Missions/SOHO"
     }
 }
 

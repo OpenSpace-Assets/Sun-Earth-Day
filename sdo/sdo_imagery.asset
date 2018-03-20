@@ -27,7 +27,7 @@ local SDOImagery = {
     },
     GUI = {
         Name = "SolarImagery SDO Image AIA",
-        Path = "/Solar System/Solar Imagery"
+        Path = "/Solar System/Missions/SDO"
     }
 }
 

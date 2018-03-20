@@ -29,7 +29,7 @@ local SOHOImagery = {
     },
     GUI = {
         Name = "SolarImagery SOHO Image C2",
-        Path = "/Solar System/Solar Imagery"
+        Path = "/Solar System/Missions/SOHO"
     }
 }
 

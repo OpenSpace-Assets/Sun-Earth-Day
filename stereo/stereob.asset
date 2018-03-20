@@ -41,7 +41,7 @@ local STEREOB = {
     },
     GUI = {
         Name = "Stereo B",
-        Path = "/SolarSystem/Missions/Stereo"
+        Path = "/Solar System/Missions/Stereo"
     }
 }
 
@@ -62,7 +62,7 @@ local STEREOBTrail = {
     },
     GUI = {
         Name = "Stereo B Trail",
-        Path = "/SolarSystem/Missions/Stereo"
+        Path = "/Solar System/Missions/Stereo"
     }
 }
 
