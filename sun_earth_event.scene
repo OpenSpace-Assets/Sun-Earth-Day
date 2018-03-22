@@ -19,7 +19,7 @@ SOHOImageryDataPath    = SolarImageryBasePath .. "event/SOHO"
 assetHelper.requestAll(asset, './soho')
 
 SDOImageryDataPath     = SolarImageryBasePath .. "event/SDO"
--- assetHelper.requestAll(asset, './sdo')
+assetHelper.requestAll(asset, './sdo')
 
 StereoAImageryDataPath = SolarImageryBasePath .. "event/STEREOA"
 StereoBImageryDataPath = SolarImageryBasePath .. "event/STEREOB"
