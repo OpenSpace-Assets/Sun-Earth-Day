@@ -25,6 +25,19 @@ if not BATSRUSPaths.VelocityFlowlinesUpstream then
     openspace.printError("Trying to add BATSRUS fieldlines, but 'BATSRUSPaths.VelocityFlowlinesUpstream' was not defined")
     failed = true
 end
+if not BATSRUSPaths.VelocityFlowlinesUpstreamNew then
+    openspace.printError("Trying to add BATSRUS fieldlines, but 'BATSRUSPaths.VelocityFlowlinesUpstreamNew' was not defined")
+    failed = true
+end
+if not BATSRUSPaths.ArtificialMagnetic then
+    openspace.printError("Trying to add BATSRUS fieldlines, but 'BATSRUSPaths.ArtificialMagnetic' was not defined")
+    failed = true
+end
+if not BATSRUSPaths.ArtificialVelocityFlowlines then
+    openspace.printError("Trying to add BATSRUS fieldlines, but 'BATSRUSPaths.ArtificialVelocityFlowlines' was not defined")
+    failed = true
+end
+
 if failed then
     return
 end
@@ -43,6 +56,7 @@ local BatsrusJ12OpenClosed = {
         -- MaxNumStates = 12,
         LoadBinariesAtRuntime = true,
         ColorTablePaths = {
+            batsrusTemperatureColorTable,
             batsrusTemperatureColorTable,
             batsrusDensityColorTable,
             batsrusCurrentColorTable,
@@ -122,9 +136,354 @@ local BatsrusJ12FlowLines = {
     }
 }
 
+local BatsrusJ12FlowLinesNew = {
+    Identifier = "FL_BATSRUS_J12_FlowLines_New",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        -- TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.VelocityFlowlinesUpstreamNew,
+        InputFileType = "osfls",
+        -- StartStateOffset = 650,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 60 },
+            { -0.015, 0.015 },
+            { 150, 900 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.6 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80, 80 }, { -100, 100 } },
+        LoadAtRuntime = true
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS J12 Flowlines New"
+    }
+}
 
+-------------------- ARTIFICIAL RUN -------------------------
+local BatsrusArtificialOpenClosed = {
+    Identifier = "FL_BATSRUS_Artificial_OpenClosed",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic .. 'open-closed/',
+        InputFileType = "osfls",
+        -- StartStateOffset = 1080,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 60 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.6 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -32,32 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Open/Closed"
+    }
+}
 
-local objects = { BatsrusJ12OpenClosed, BatsrusJ12FlowLines }
+local BatsrusArtificialThroughout = {
+    Identifier = "FL_BATSRUS_Artificial_Throughout",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic .. 'throughout/',
+        InputFileType = "osfls",
+        -- StartStateOffset = 1080,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 60 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.6 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -32,32 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Throughout"
+    }
+}
+
+local BatsrusArtificialFlowlines = {
+    Identifier = "FL_BATSRUS_Artificial_FlowLines",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialVelocityFlowlines .. 'upstream/',
+        InputFileType = "osfls",
+        -- StartStateOffset = 1080,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 4.5 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.6 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -32,32 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Flow"
+    }
+}
+
+-- ----------------------------------------SINGLE TIMESTEP-------------------------------------------------
+local BatsrusArtificialSingleFlow = {
+    Identifier = "FL_BATSRUS_Artificial_SingleStepFlowLines",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic..'single-timestep/',
+        InputFileType = "osfls",
+        -- LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 4.5 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 }
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.075 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -100,100 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Single Step Flow"
+    }
+}
+
+local BatsrusArtificialSingleOpenClosed = {
+    Identifier = "FL_BATSRUS_Artificial_SingleStepOpenClosed",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic..'single-timestep/',
+        InputFileType = "osfls",
+        -- LoadBinariesAtRuntime = true,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 4.5 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 }
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.4 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -100,100 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Single Step Open/Closed"
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------DOUBLE TIMESTEP---------------------------------------------------------
+local BatsrusArtificialDoubleOpenClosed ={
+    Identifier = "FL_BATSRUS_Artificial_DTimeStep-OpenClosed",
+    Parent = transforms.GSMReferenceFrame.Identifier,
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic..'double-timestep/open-closed/',
+        InputFileType = "osfls",
+        -- StartStateOffset = 1080,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = false,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 60 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.18 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -80,80 }, { -32,32 } }
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artificial Double Open/Closed",
+    }
+}
+
+local BatsrusArtificialDoubleThroughout = {
+    Identifier = "FL_BATSRUS_Artificial_DTimeStep-throughout",
+    Parent = "GSMReferenceFrame",
+    Renderable = {
+        Type = "RenderableFieldlinesSequence",
+        TracingMethod = "PreTracedBinary",
+        SourceFolder = BATSRUSPaths.ArtificialMagnetic..'double-timestep/throughout/',
+        InputFileType = "osfls",
+        -- StartStateOffset = 1080,
+        -- StateStepSize = 100,
+        -- MaxNumStates = 12,
+        LoadBinariesAtRuntime = false,
+        ColorTablePaths = {
+            batsrusTemperatureColorTable,
+            batsrusDensityColorTable,
+            batsrusCurrentColorTable,
+            batsrusVelocityColorTable,
+            batsrusTopologyColorTable,
+        },
+        ColorTableMinMax = {
+            { 0, 100000000 },
+            { 0, 60 },
+            { -0.015, 0.015 },
+            { 150, 550 },
+            { 0, 3 },
+        },
+        ExtraMinMaxLimits = {
+            { 0, 1000000000 },
+            { -1, 150 },
+            { -0.2, 0.2 },
+            { 0, 6000 },
+            { 0, 3 },
+        },
+        DefaultColor = { 0.7, 0.4, 0.0, 0.33 },
+        RadialDomainLimits = { 0, 350 },
+        CartesianDomainLimits = { { -400, 60 }, { -70,70 }, {- 32,32 }},
+    },
+    GUI = {
+        Name = "Fieldlines BATSRUS Artifical Double Throughout"
+    }
+}
+
+local objects = {
+    BatsrusJ12OpenClosed,
+    BatsrusJ12FlowLines,
+    BatsrusJ12FlowLinesNew,
+    BatsrusArtificialOpenClosed,
+    BatsrusArtificialFlowlines,
+    BatsrusArtificialThroughout,
+    BatsrusArtificialSingleFlow,
+    BatsrusArtificialSingleOpenClosed,
+    -- BatsrusArtificialDoubleOpenClosed,
+    -- BatsrusArtificialDoubleThroughout
+}
 local init, deinit = assetHelper.registrationFunctions(asset, objects)
 
 asset.onInitialize(function ()
@@ -150,6 +509,39 @@ asset.onInitialize(function ()
     openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_FlowLines.renderable.Flow.particleSpacing", 60)
     openspace.setPropertyValueSingle("Scene.FL_BATSRUS_J12_FlowLines.renderable.Flow.speed", 20)
 
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Masking.maskingQuantity", 4)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Masking.maskingMinLimit", "2.5")
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Masking.maskingMaxLimit", "3.0")
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Color.colorMethod", 1) -- Color by Quantity
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Color.colorQuantity", 4)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepFlow*.renderable.Color.colorMethod", 1) -- Color by Quantity
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepFlow*.renderable.Color.colorQuantity", 3)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepFlow*.renderable.flowEnabled", true)
+
+    -- particles
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStep*.renderable.Flow.particleSpacing", 19)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStep*.renderable.Flow.speed", 18.5)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Flow.particleSize", 25)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepOpen*.renderable.Flow.color", { 1, 1, 0, 0.12 })
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepFlow*.renderable.Flow.particleSize", 2)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.showParticles", true)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Masking.maskingQuantity", 4)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Color.fieldlineColorQuantity", 4)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.color", {1, 1, 0, 1.0})
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.color", {1, 1, 0, 0.5})
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.particleSpacing", 9)
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.particleSpacing", 54)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.particleSize", 2)
+
+    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.speed", 15)
 
 
 
