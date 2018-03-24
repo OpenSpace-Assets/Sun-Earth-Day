@@ -1,0 +1,8 @@
+local Markers = asset.syncedResource({
+    Name = "Spacecraft Markers",
+    Type = "HttpSynchronization",
+    Identifier = "sun_earth_event-markers",
+    Version = 1
+})
+
+asset.export("Markers", Markers)

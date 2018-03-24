@@ -1,6 +1,6 @@
 local assetHelper = asset.require('util/asset_helper')
 local earthTransforms = asset.require('scene/solarsystem/planets/earth/transforms')
-
+local Markers = asset.require('../markers').Markers
 
 
 local kernels = asset.syncedResource({
@@ -82,7 +82,20 @@ local SDOTrail = {
     }
 }
 
+local SDOMarker = {
+    Identifier = "SolarImagery_SDO_Marker",
+    Parent = SDOCoordinateSystem.Identifier,
+    Renderable = {
+        Type = "RenderablePlaneImageLocal",
+        Enabled = false,
+        Size =  10^9.8,
+        Origin = "Center",
+        Billboard = true,
+        Texture = Markers .. "/marker_sdo.png",
+        BlendMode = "Additive"
+    }
+}
 
 
-local objects = { SDO, SDOGalacticIntermediateNode, SDOCoordinateSystem, SDOTrail }
+local objects = { SDO, SDOGalacticIntermediateNode, SDOCoordinateSystem, SDOTrail, SDOMarker }
 assetHelper.registerSceneGraphNodesAndExport(asset, objects)

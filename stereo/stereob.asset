@@ -1,6 +1,7 @@
 local assetHelper = asset.require('util/asset_helper')
 local transforms = asset.require('scene/solarsystem/sun/transforms')
 
+local Markers = asset.require('../markers').Markers
 
 
 local kernels = asset.syncedResource({
@@ -66,7 +67,20 @@ local STEREOBTrail = {
     }
 }
 
+local STEREOBMarker = {
+    Identifier = "SolarImagery_STEREO_B_Marker",
+    Parent = STEREOB.Identifier,
+    Renderable = {
+        Type = "RenderablePlaneImageLocal",
+        Enabled = false,
+        Size =  10^9.8,
+        Origin = "Center",
+        Billboard = true,
+        Texture = Markers .. "/marker_stereob.png",
+        BlendMode = "Additive"
+    }
+}
 
 
-local objects = { STEREOB, STEREOBTrail }
+local objects = { STEREOB, STEREOBTrail, STEREOBMarker }
 assetHelper.registerSceneGraphNodesAndExport(asset, objects)

@@ -1,6 +1,7 @@
 local assetHelper = asset.require('util/asset_helper')
 local transforms = asset.require('scene/solarsystem/sun/transforms')
 
+local Markers = asset.require('../markers').Markers
 
 
 local kernels = asset.syncedResource({
@@ -80,7 +81,21 @@ local SOHOTrail = {
     }
 }
 
+local SOHOMarker = {
+    Identifier = "SolarImagery_SOHO_Marker",
+    Parent = SOHO.Identifier,
+    Renderable = {
+        Type = "RenderablePlaneImageLocal",
+        Enabled = false,
+        Size =  10^9.8,
+        Origin = "Center",
+        Billboard = true,
+        Texture = Markers .. "/marker_soho.png",
+        BlendMode = "Additive"
+    }
+}
 
 
-local objects = { SOHO, SOHOTrail }
+
+local objects = { SOHO, SOHOTrail, SOHOMarker }
 assetHelper.registerSceneGraphNodesAndExport(asset, objects)

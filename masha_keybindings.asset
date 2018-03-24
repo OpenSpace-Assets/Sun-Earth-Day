@@ -1,0 +1,151 @@
+local sceneHelper = asset.require('util/scene_helper')
+local propertyHelper = asset.require('util/property_helper')
+
+local MashaKeybindings = {
+    {
+        Key = "Shift+Q",
+        Command = "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Enabled', true)",
+        Documentation = "Enable Open/Closed",
+        Local = false
+    },
+    {
+        Key = "Shift+W",
+        Command = "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.flowEnabled', true)",
+        Documentation = "Enable flow particles on Open/Closed",
+        Local = false
+    },
+    -- {
+    --     Key = "Shift+E",
+    --     Command = "openspace.time.setTime('2000 JAN 01 06:57:00.000')",
+    --     Documentation = "Set time to 2001 JAN 01 06:57:00",
+    --     Local = false
+    -- },
+    {
+        Key = "Shift+E",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.flowEnabled', false)" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.flowEnabled', true)" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.25});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Enabled', true)",
+        Documentation = "Show Flow lines",
+        Local = false
+    },
+    {
+        Key = "Shift+R",
+        Command = "openspace.setPropertyValue('*geo*.Enabled', true);",
+        Documentation = "Enable Geostationary",
+        Local = false
+    },
+    {
+        Key = "Shift+T",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.colorQuantity', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.colorQuantityMax', [[5.75]]);",
+        Documentation = "Switch to velocity",
+        Local = false
+    },
+    {
+        Key = "Shift+Y",
+        Command =
+            "openspace.setPropertyValue('*geo*.Enabled', false);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Enabled', false);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Enabled', false);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Enabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorMethod', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorQuantity', 4);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorQuantityMax', [[3]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.domainEnabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.aBlendingEnabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Domain.limitsY', {-30.000000,30.000000});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.flowEnabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Flow.color', {0.800000,0.700000,0.000000,1.000000});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.392860});",
+        Documentation = "Goto schematic",
+        Local = false
+    },
+    {
+        Key = "Shift+A",
+        Command = "openspace.time.setTime('2012 JUL 14 06:00:00.000')",
+        Documentation = "Set time to 2012 JUL 14",
+        Local = false
+    },
+    {
+        Key = "Shift+S",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.uniform', {1.000000,1.000000,0.000000,0.642860});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Enabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorMethod', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantity', 3);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMin', [[75]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[800]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorMethod', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantity', 4);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Enabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMin', [[75]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[800]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.120000});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.aBlendingEnabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.aBlendingEnabled', true);",
+        Documentation = "Enable flow",
+        Local = false
+    },
+    {
+        Key = "Shift+D",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantity', 2);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantity', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[20]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[37.5]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[20]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[37.5]]);",
+        Documentation = "Switch to density",
+        Local = false
+    },
+    {
+        Key = "Shift+G",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Enabled', false);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Enabled', false);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantity', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorMethod', 1);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[0]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[70000000]]);",
+        Documentation = "Show temperature on closed fiedlines",
+        Local = false
+    },
+    {
+        Key = "Shift+H",
+        Command = "openspace.time.setTime('2012 JUL 15 10:00:00.000')",
+        Documentation = "Set time to 2012 JUL 15",
+        Local = false
+    },
+    {
+        Key = "Shift+J",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantity', 3);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[-0.0001]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[0.0001]]);",
+        Documentation = "Initial j_para",
+        Local = false
+    },
+    {
+        Key = "Shift+K",
+        Command =
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.domainEnabled', true);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Domain.limitsR', {0.000000,1.500000});" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[-0.002500]]);" ..
+            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[0.002500]]);",
+        Documentation = "Secondary j_para",
+        Local = false
+    }
+}
+
+asset.onInitialize(function ()
+    openspace.printInfo("Adding Masha Keybinds")
+    sceneHelper.bindKeys(MashaKeybindings)
+end)
+
+asset.onDeinitialize(function ()
+    openspace.printInfo("Removing Masha Keybinds")
+    sceneHelper.unbindKeys(MashaKeybindings)
+end)

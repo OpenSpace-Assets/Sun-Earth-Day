@@ -58,6 +58,8 @@ asset.require('./sun/sun')
 
 asset.require('scene/solarsystem/planets/earth/satellites/communications/geostationary')
 
+asset.require('./leila_keybindings')
+asset.require('./masha_keybindings')
 
 
 local reset = function()
@@ -74,7 +76,12 @@ local reset = function()
         "openspace.setPropertyValue('Scene.geo_*_trail.renderable.Color', {0.9, 0.15663, 0.45783})" ..
         "openspace.setPropertyValueSingle('Scene.Stars.renderable.Sharpness', 2.862190);" ..
         "openspace.setPropertyValueSingle('Scene.Stars.renderable.MagnitudeExponent', 9.646640);" ..
-        "openspace.setPropertyValueSingle('Scene.Stars.renderable.BillboardSize', 110.321556);"
+        "openspace.setPropertyValueSingle('Scene.Stars.renderable.BillboardSize', 110.321556);" ..
+        "openspace.setPropertyValueSingle('Dashboard.Framerate.Enabled', false);" ..
+        "openspace.setPropertyValueSingle('Dashboard.Distance.Enabled', false);" ..
+        "openspace.setPropertyValueSingle('RenderEngine.ShowLog', false);" ..
+        "openspace.setPropertyValueSingle('RenderEngine.ShowCamera', false);" ..
+        "openspace.setPropertyValueSingle('RenderEngine.ShowVersion', false);"
 end
 
 local setupLeila = function ()
@@ -82,8 +89,8 @@ return
     "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.Enabled', true);" ..
     "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 7);" ..
     "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.resolutionLevel', 0);" ..
-    "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.gammaValue', 1.907140);" ..
-    "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.contrastValue', 3.174600);" ..
+    "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.gammaValue', 1.54085);" ..
+    "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.contrastValue', 0);" ..
     "openspace.setPropertyValueSingle('Scene.EarthMarker.renderable.Enabled', true);" ..
     "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.flowEnabled', false);" ..
     "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.Color.uniform', {0.386100,1.000000,0.921740,0.181820});" ..
@@ -120,7 +127,7 @@ end
 local setupMashaArtificial = function ()
 return
     reset() ..
-    "openspace.time.setTime('2000 JAN 01 06:57:00.000')" ..
+    "openspace.time.setTime('2000 JAN 01 06:57:00.000');" ..
     "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.maskingEnabled', true);" ..
     "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Masking.maskingQuantity', 4);" ..
     "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Masking.maskingMinLimit', [[2]]);" ..
@@ -140,8 +147,9 @@ return
     "openspace.setPropertyValueSingle('Scene.Earth.RenderableGlobe.Layers.ColorLayers.ESRI_World_Imagery.Enabled', true);" ..
     "openspace.setPropertyValueSingle('Scene.Earth.RenderableGlobe.Layers.ColorLayers.ESRI_VIIRS_Combo.Enabled', false);" ..
     "openspace.time.setPause(true)" ..
-    "openspace.setPropertyValueSingle('Scene.EarthMarker.renderable.Enabled', false);"
-
+    "openspace.setPropertyValueSingle('Scene.EarthMarker.renderable.Enabled', false);" ..
+    "openspace.setPropertyValue('Scene.*Marker.renderable.Enabled', false);" ..
+    "openspace.setPropertyValue('Scene.FL_ENLIL_*.renderable.Enabled', false);"
 end
 
 local setupMashaReal = function ()
@@ -188,382 +196,9 @@ openspace.setPropertyValueSingle('Modules.ImGUI.Main.IsHidden', b);]],
         Local = false
     },
     {
-        Key = "Q",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.enableFrustum', true);" ..
-            "openspace.setPropertyValueSingle('Scene.EarthMarker.renderable.Enabled', false);",
-        Documentation = "Enable SDO frustum",
-        Local = false
-    },
-    {
-        Key = "W",
-        Command =
-            "openspace.time.setDeltaTime(3600);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.resolutionLevel', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.enableFrustum', false);",
-        Documentation = "Delta time to 10 min, lower resolution level, disable frustum",
-        Local = false
-    },
-    {
-        Key = "E",
-        Command = "openspace.setPropertyValue('Scene.*AIA*.moveFactor', 0.9, 3);",
-        Documentation = "Unproject AIA",
-        Local = false
-    },
-    {
-        Key = "KP_7",
-        Command = "openspace.time.setDeltaTime(1800)",
-        Documentation = "Set delta time to 1800",
-        Local = false
-    },
-    {
-        Key = "KP_8",
-        Command = "openspace.time.setDeltaTime(3600)",
-        Documentation = "Set delta time to 3600",
-        Local = false
-    },
-    {
-        Key = "KP_9",
-        Command = "openspace.time.setDeltaTime(7200)",
-        Documentation = "Set delta time to 7200",
-        Local = false
-    },
-    {
-        Key = "KP_0",
-        Command = "openspace.time.setTime('2012 JUL 12 15:00:00')",
-        Documentation = "Jump to 2012 JUL 12 15:00:00",
-        Local = false
-    },
-    {
-        Key = "KP_1",
-        Command = "openspace.time.setTime('2012 JUL 12 19:10:15');",
-        Documentation = "Jump to 2012 JUL 12 19:10:15",
-        Local = false
-    },
-    {
-        Key = "R",
-        Command =
-            "openspace.setPropertyValue('Scene.Stereo_*_Trail.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.EarthMarker.renderable.Enabled', true);",
-            -- Add stereo labels
-        Documentation = "Enable Stereo Orbits",
-        Local = false
-    },
-    {
-        Key = "T",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.activeInstrument', 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.activeInstrument', 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.enableFrustum', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.enableFrustum', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.enableFrustum', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.moveFactor', 0.9, 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.moveFactor', 0.9, 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.moveFactor', 0.9, 4);",
-        Documentation = "Set SDO, STEREO to 193, enable frustums",
-        Local = false
-    },
-    {
-        Key = "Y",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.moveFactor', 1.0, 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.moveFactor', 1.0, 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.moveFactor', 1.0, 4);",
-            Documentation = "Project image planes",
-            Local = false
-    },
-    {
-        Key = "U",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.planeOpacity', 0.000000);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.planeOpacity', 0.000000);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.planeOpacity', 0.000000);",
-        Documentation = "Hide image planes",
-        Local = false
-    },
-    {
-        Key = "I",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.Enabled', true)" ..
-            "openspace.time.setTime('2012 JUL 12 19:10:15.000');" ..
-            "openspace.time.setPause(true)",
-        Documentation = "Hide image planes",
-        Local = false
-    },
-    {
-        Key = "O",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 8);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.planeOpacity', 1.000000, 3);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.enableFrustum', false);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.enableFrustum', false);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.enableFrustum', false);",
-        Documentation = "Show Magnetogram",
-        Local = false
-    },
-    {
-        Key = "P",
-        Command = propertyHelper.invert("Scene.FL_PFSS.renderable.flowEnabled"),
-        Documentation = "Show Polarity arrows",
-        Local = false
-    },
-    {
-        Key = "F9",
-        Command = "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 7);",
-        Documentation = "Goto continuum",
-        Local = false
-    },
-    {
-        Key = "F10",
-        Command = "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 8);",
-        Documentation = "Goto magnetogram",
-        Local = false
-    },
-    {
-        Key = "F11",
-        Command = "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 8);",
-        Documentation = "Goto magnetogram",
-        Local = false
-    },
-    {
-        Key = "LEFT_BRACKET",
-        Command = "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.Enabled', false);",
-        Documentation = "Disable PFSS",
-        Local = false
-    },
-    {
-        Key = "A",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.activeInstrument', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.resolutionLevel', 4);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.moveFactor', 0.90);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.planeOpacity', 1.000000);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.planeOpacity', 1.000000);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C2.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C2.renderable.enableFrustum', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C2.renderable.planeOpacity', 1.000000);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C2.renderable.moveFactor', 0.995);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C3.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C3.renderable.enableFrustum', true);",
-        Documentation = "Goto coronagraph (coronal wavelength)",
-        Local = false
-    },
-    {
-        Key = "KP_2",
-        Command = "openspace.time.setTime('2012 JUL 08 00:00:00');openspace.time.setDeltaTime(21600);",
-        Documentation = "C2/C3 Loop",
-        Local = false
-    },
-    {
-        Key = "KP_3",
-        Command = "openspace.time.setTime('2012 JUL 12 17:11:50');openspace.time.setPause(true);openspace.time.setDeltaTime(5);",
-        Documentation = "CME Loop",
-        Local = false
-    },
-    {
-        Key = "S",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_COR.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_COR.renderable.activeInstrument', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoA_Image_EUV.renderable.moveFactor', 0.995);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_COR.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_COR.renderable.activeInstrument', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Stereo_StereoB_Image_EUV.renderable.moveFactor', 0.995);",
-        Documentation = "Enable COR2 on Stereo A and B",
-        Local = false
-    },
-    {
-        Key = "D",
-        Command =
-            "openspace.time.setPause(true)" ..
-            "openspace.setPropertyValue('Scene.Stereo_*_Trail.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.Enabled', true)" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.moveFactor', 1.000000, 3);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_SDO_Image_AIA.renderable.resolutionLevel', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C2.renderable.enableFrustum', false);" ..
-            "openspace.setPropertyValueSingle('Scene.SolarImagery_Soho_Image_C3.renderable.enableFrustum', false);",
-        Documentation = "Briefly show PFSS before zooming out",
-        Local = false
-    },
-    {
-        Key = "G",
-        Command =
-            "openspace.time.setPause(true);" ..
-            "openspace.time.setDeltaTime(43200);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_ENLIL_slice_eqPlane_011AU_1.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_ENLIL_slice_eqPlane_011AU_2.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_ENLIL_slice_lat4_011AU_1.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_ENLIL_slice_lat4_011AU_2.renderable.Enabled', true);",
-        Documentation = "Enable ENLIL fieldlines",
-        Local = false
-    },
-    {
-        Key = "H",
-        Command = "openspace.setPropertyValueSingle('Scene.FL_PFSS.renderable.Enabled', false);",
-        Documentation = "Disable PFSS",
-        Local = false
-    },
-    {
-        Key = "KP_4",
-        Command = "openspace.time.setTime('2012 JUL 01 01:00:00.000')",
-        Documentation = "Set time to 2012 JUL 01",
-        Local = false
-    },
-
-
-
-
-
-
-
-
-    {
-        Key = "Shift+Q",
-        Command = "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Enabled', true)",
-        Documentation = "Enable Open/Closed",
-        Local = false
-    },
-    {
-        Key = "Shift+W",
-        Command = "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.flowEnabled', true)",
-        Documentation = "Enable flow particles on Open/Closed",
-        Local = false
-    },
-    -- {
-    --     Key = "Shift+E",
-    --     Command = "openspace.time.setTime('2000 JAN 01 06:57:00.000')",
-    --     Documentation = "Set time to 2001 JAN 01 06:57:00",
-    --     Local = false
-    -- },
-    {
-        Key = "Shift+E",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.flowEnabled', false)" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.flowEnabled', true)" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.25});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Enabled', true)",
-        Documentation = "Show Flow lines",
-        Local = false
-    },
-    {
-        Key = "Shift+R",
-        Command = "openspace.setPropertyValue('*geo*.Enabled', true);",
-        Documentation = "Enable Geostationary",
-        Local = false
-    },
-    {
-        Key = "Shift+T",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.colorQuantity', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Color.colorQuantityMax', [[5.75]]);",
-        Documentation = "Switch to velocity",
-        Local = false
-    },
-    {
-        Key = "Shift+Y",
-        Command =
-            "openspace.setPropertyValue('*geo*.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_OpenClosed.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_FlowLines.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorMethod', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorQuantity', 4);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.colorQuantityMax', [[3]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.domainEnabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.aBlendingEnabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Domain.limitsY', {-30.000000,30.000000});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.flowEnabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Flow.color', {0.800000,0.700000,0.000000,1.000000});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_Artificial_Throughout.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.392860});",
-        Documentation = "Goto schematic",
-        Local = false
-    },
-    {
         Key = "F7",
         Command = setupMashaReal(),
         Documentation = "Setup Masha Real",
-        Local = false
-    },
-    {
-        Key = "Shift+A",
-        Command = "openspace.time.setTime('2012 JUL 14 06:00:00.000')",
-        Documentation = "Set time to 2012 JUL 14",
-        Local = false
-    },
-    {
-        Key = "Shift+S",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.uniform', {1.000000,1.000000,0.000000,0.642860});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorMethod', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantity', 3);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMin', [[75]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[800]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorMethod', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantity', 4);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Enabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMin', [[75]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[800]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.uniform', {0.750000,0.500000,0.000000,0.120000});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.aBlendingEnabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.aBlendingEnabled', true);",
-        Documentation = "Enable flow",
-        Local = false
-    },
-    {
-        Key = "Shift+D",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantity', 2);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantity', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[20]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Color.colorQuantityMax', [[37.5]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[20]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Color.colorQuantityMax', [[37.5]]);",
-        Documentation = "Switch to density",
-        Local = false
-    },
-    {
-        Key = "Shift+G",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_FlowLines_New.renderable.Enabled', false);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantity', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorMethod', 1);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[0]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[70000000]]);",
-        Documentation = "Show temperature on closed fiedlines",
-        Local = false
-    },
-    {
-        Key = "Shift+H",
-        Command = "openspace.time.setTime('2012 JUL 15 10:00:00.000')",
-        Documentation = "Set time to 2012 JUL 15",
-        Local = false
-    },
-    {
-        Key = "Shift+J",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantity', 3);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[-0.0001]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[0.0001]]);",
-        Documentation = "Initial j_para",
-        Local = false
-    },
-    {
-        Key = "Shift+K",
-        Command =
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.domainEnabled', true);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Domain.limitsR', {0.000000,1.500000});" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMin', [[-0.002500]]);" ..
-            "openspace.setPropertyValueSingle('Scene.FL_BATSRUS_J12_OpenClosed.renderable.Color.colorQuantityMax', [[0.002500]]);",
-        Documentation = "Secondary j_para",
         Local = false
     }
 }
@@ -574,13 +209,11 @@ local earthAsset = asset.require('scene/solarsystem/planets/earth/earth')
 asset.onInitialize(function ()
     openspace.time.setTime("2012 JUL 01 00:00:00.000")
 
-    -- Clearing before resetting the new bindings
-    -- openspace.clearKey("F1")
-    -- openspace.clearKey("F2")
-    -- openspace.clearKey("F3")
-    -- openspace.clearKey("F4")
-
     sceneHelper.bindKeys(Keybindings)
+
+    openspace.clearKey("F2")
+    openspace.clearKey("F3")
+    openspace.clearKey("F4")
 
     openspace.setDefaultDashboard()
     openspace.setDefaultGuiSorting()
@@ -597,78 +230,6 @@ asset.onInitialize(function ()
     openspace.setPropertyValue("Scene.geo*.renderable.Enabled", false)
     openspace.setPropertyValue("Scene.geo_GOES*.renderable.Enabled", true)
     openspace.setPropertyValue("Scene.geo_GOES_*_trail.renderable.Fade", 0.6)
-
-    -- openspace.setPropertyValue('Scene.SolarImagery_*_Image*.renderable.planeOpacity', 0)
-
-
-    -- openspace.addVirtualProperty(
-    --     "BoolProperty",
-    --     "Show Trails",
-    --     "Scene.*Trail.renderable.Enabled",
-    --     "Disable or enable all trails of the scene at the same time",
-    --     true,
-    --     nil,
-    --     nil
-    -- )
-
-
-    -- openspace.addVirtualProperty("BoolProperty", "Activate Looping", "VirtualPropertyManager.Scene.Sun_Projection.renderable.activateLooping", "", false, nil, nil)
-    -- openspace.addVirtualProperty("IntProperty",  "Loop Id", "VirtualPropertyManager.Scene.Sun_Projection.renderable.loopId", "", 0, 0, 9)
-    -- Display Frustums
-    -- openspace.addVirtualProperty("BoolProperty", "Display Frustums", "VirtualPropertyManager.Scene.SolarImagery_*_Image*.renderable.enableFrustum", "", false, nil, nil)
-    -- Display Markers
-    -- openspace.addVirtualProperty("BoolProperty", "Display Markers", "VirtualPropertyManager.Scene.SolarImagery_*_Marker.renderable.enabled", "", true, nil, nil)
-    -- openspace.addVirtualProperty("FloatProperty", "Plane Opacity", "SolarImagery*.renderable.planeOpacity", "", 1.0, 0.0, 1.0)
-    -- openspace.addVirtualProperty("FloatProperty", "Move Factor", "SolarImagery*.renderable.moveFactor", "", 0.9, 0.0, 1.0)
-    -- openspace.addVirtualProperty("BoolProperty",  "Verbose All Planes", "SolarImagery*.renderable.verboseMode", "", false, nil, nil)
-
-    -- openspace.addVirtualProperty("IntProperty",   "Update Interval", "SolarImagery*.renderable.minRealTimeUpdateInterval", "", 65, 0, 1000)
-
-    --    -- ===================================================== STEREO A & B ============================================================
-    -- -- Stereo Orbits
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo Orbits", "SolarImagery_Stereo_O*.renderable.enabled", "", false, nil, nil)
-    -- -- Stereo Labels
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo Labels", "SolarImagery_Stereo_L*.renderable.enabled", "", false, nil, nil)
-
-    -- -- Stereo Frustums
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo Frustums", "SolarImagery_Stereo_*_Image_*.renderable.enableFrustum", "", false, nil, nil)
-
-
-
-
-    -- -- SDO Orbit
-    -- openspace.addVirtualProperty("BoolProperty",  "SDO Orbit",   "SolarImagery_SDO_Trail.renderable.enabled", "", false, nil, nil)
-    -- -- SDO Label
-    -- openspace.addVirtualProperty("BoolProperty",  "SDO Label", "SolarImagery_SDO_Marker.renderable.enabled", "", false, nil, nil)
-
-    -- -- Soho Orbit
-    -- openspace.addVirtualProperty("BoolProperty",  "SOHO Orbit",   "SolarImagery_Soho_Trail.renderable.enabled", "", false, nil, nil)
-    -- -- Soho Label
-    -- openspace.addVirtualProperty("BoolProperty",  "SOHO Label",   "SolarImagery_Soho_Marker.renderable.enabled", "", false, nil, nil)
-
-    -- -- Stereo A
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo A EUV", "SolarImagery_Stereo_StereoA_Image_EUV.renderable.enabled", "", false, nil, nil)
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo A COR2",  "SolarImagery_Stereo_StereoA_Image_COR.renderable.enabled", "", false, nil, nil)
-    -- -- Stereo B
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo B EUV", "SolarImagery_Stereo_StereoB_Image_EUV.renderable.enabled", "", false, nil, nil)
-    -- openspace.addVirtualProperty("BoolProperty",  "Stereo B COR2", "SolarImagery_Stereo_StereoB_Image_COR.renderable.enabled", "", false, nil, nil)
-
-    --    -- ======================================================= SDO ===================================================================
-    -- -- SDO Frustum
-    -- openspace.addVirtualProperty("BoolProperty",  "SDO Frustum", "SolarImagery_SDO_Image_AIA.renderable.enableFrustum", "", false, nil, nil)
-    -- -- SDO
-    -- openspace.addVirtualProperty("BoolProperty",  "SDO",   "SolarImagery_SDO_Image*.renderable.enabled", "", false, nil, nil)
-
-
-    -- -- ========================================================== SOHO ===================================================================
-    -- -- Soho Frustum
-    -- openspace.addVirtualProperty("BoolProperty",  "SOHO Frustum",   "SolarImagery_Soho_Image_*.renderable.enableFrustum", "", false, nil, nil)
-    -- -- SOHO
-    -- openspace.addVirtualProperty("BoolProperty",  "SOHO C2", "SolarImagery_Soho_Image_C2.renderable.enabled", "", false, nil, nil)
-    -- openspace.addVirtualProperty("BoolProperty",  "SOHO C3", "SolarImagery_Soho_Image_C3.renderable.enabled", "", false, nil, nil)
-
-    -- openspace.addVirtualProperty("BoolProperty",  "Earth Label",   "SolarImagery_EarthMarker_Marker.renderable.enabled", "", true, nil, nil)
-    -- openspace.addVirtualProperty("BoolProperty", "ACE Label", "SolarImagery_ACE_Marker.renderable.enabled", "", false, nil, nil)
 
 
     openspace.navigation.setCameraState({
