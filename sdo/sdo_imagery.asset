@@ -12,7 +12,7 @@ local transferfunctions = asset.syncedResource({
     Name = "SDO Transfer Functions",
     Type = "HttpSynchronization",
     Identifier = "sun_earth_event-sdo_transferfunctions",
-    Version = 1
+    Version = 2
 })
 
 local SDOImagery = {

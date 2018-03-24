@@ -529,19 +529,19 @@ asset.onInitialize(function ()
 
     openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_SingleStepFlow*.renderable.Flow.particleSize", 2)
 
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.showParticles", true)
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Masking.maskingQuantity", 4)
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Color.fieldlineColorQuantity", 4)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.showParticles", true)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Masking.maskingQuantity", 4)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DT*.renderable.Color.fieldlineColorQuantity", 4)
 
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.color", {1, 1, 0, 1.0})
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.color", {1, 1, 0, 0.5})
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.color", {1, 1, 0, 1.0})
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.color", {1, 1, 0, 0.5})
 
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.particleSpacing", 9)
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.particleSpacing", 54)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-throughout*.renderable.Flow.particleSpacing", 9)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep-Open*.renderable.Flow.particleSpacing", 54)
 
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.particleSize", 2)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.particleSize", 2)
 
-    openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.speed", 15)
+    -- openspace.setPropertyValue("Scene.FL_BATSRUS_Artificial_DTimeStep*.renderable.Flow.speed", 15)
 
 
 

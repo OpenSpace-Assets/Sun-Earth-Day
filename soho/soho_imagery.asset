@@ -8,7 +8,7 @@ if not SOHOImageryDataPath then
     return
 end
 
-local SOHOImagery = {
+local SOHOImageryC2 = {
     Identifier = "SolarImagery_Soho_Image_C2",
     Parent = transforms.SOHO.Identifier,
     Renderable = {
@@ -26,7 +26,25 @@ local SOHOImagery = {
     }
 }
 
+local SOHOImageryC3 = {
+    Identifier = "SolarImagery_Soho_Image_C3",
+    Parent = transforms.SOHO.Identifier,
+    Renderable = {
+        Type = "RenderableSolarImagery",
+        -- Will recursively find all instruments with .jp2 or .j2k extension
+        RootPath = SOHOImageryDataPath,
+        Offset = 0.00001,
+        StartResolutionLevel = 0,
+        StartInstrument = "LASCO_C3_white-light",
+        TransferfunctionPath = transferfunctions
+    },
+    GUI = {
+        Name = "SolarImagery SOHO Image C3",
+        Path = "/SolarImagery"
+    }
+}
 
 
-local objects = { SOHOImagery }
+
+local objects = { SOHOImageryC2, SOHOImageryC3 }
 assetHelper.registerSceneGraphNodesAndExport(asset, objects)
